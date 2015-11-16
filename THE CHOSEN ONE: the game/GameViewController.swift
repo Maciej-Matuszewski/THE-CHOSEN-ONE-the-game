@@ -3,51 +3,55 @@
 //  THE CHOSEN ONE: the game
 //
 //  Created by Maciej Matuszewski on 15.11.2015.
-//  Copyright (c) 2015 Maciej Matuszewski. All rights reserved.
+//  Copyright © 2015 Maciej Matuszewski. All rights reserved.
 //
 
-import UIKit
 import SpriteKit
+import UIKit
 
 class GameViewController: UIViewController {
 
+    var scene: GameScene!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let scene = GameScene(fileNamed:"GameScene") {
-            // Configure the view.
-            let skView = self.view as! SKView
-            skView.showsFPS = true
-            skView.showsNodeCount = true
-            
-            /* Sprite Kit applies additional optimizations to improve rendering performance */
-            skView.ignoresSiblingOrder = true
-            
-            /* Set the scale mode to scale to fit the window */
-            scene.scaleMode = .AspectFill
-            
-            skView.presentScene(scene)
-        }
-    }
+        //self.view.backgroundColor = UIColor.redColor()
+        
+        let skView = SKView(frame: self.view.frame)
+        self.view.addSubview(skView)
+        skView.multipleTouchEnabled = true
+        
+        scene = GameScene(size: skView.bounds.size)
+        scene.scaleMode = .AspectFill
+        
+        skView.presentScene(scene)
+        
+        
+        skView.showsFPS = true
+        skView.showsNodeCount = true
+        
+        let analog = UIView(frame: CGRect(x: self.view.frame.size.width-100, y: self.view.frame.size.height-100, width: 80, height: 80))
+        analog.backgroundColor = UIColor.redColor()
+        analog.layer.cornerRadius = 40
+        self.view.addSubview(analog)
+        
+        analog.addGestureRecognizer(UITapGestureRecognizer.init(target: self, action: "analogTap"))
 
-    override func shouldAutorotate() -> Bool {
-        return true
-    }
-
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
-            return .AllButUpsideDown
-        } else {
-            return .All
-        }
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
     }
-
+    
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
+    
+    func analogTap(){
+        //scene.stickJump()
+    }
+
 }

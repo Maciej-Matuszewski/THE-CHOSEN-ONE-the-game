@@ -3,43 +3,59 @@
 //  THE CHOSEN ONE: the game
 //
 //  Created by Maciej Matuszewski on 15.11.2015.
-//  Copyright (c) 2015 Maciej Matuszewski. All rights reserved.
+//  Copyright © 2015 Maciej Matuszewski. All rights reserved.
 //
 
 import SpriteKit
 
 class GameScene: SKScene {
-    override func didMoveToView(view: SKView) {
-        /* Setup your scene here */
-        let myLabel = SKLabelNode(fontNamed:"Chalkduster")
-        myLabel.text = "Hello, World!";
-        myLabel.fontSize = 45;
-        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame));
+    
+    //let ship = SKSpriteNode(imageNamed: "Spaceship")
+    //let background = SKSpriteNode(imageNamed: "skyBg")
+    
+    var stick : Stick!
+    var stickRunning : [SKTexture]!
+    
+    //var jump : Bool!
+    
+    override func update(currentTime: CFTimeInterval) {
         
-        self.addChild(myLabel)
+        
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("NSCoder not supported")
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-       /* Called when a touch begins */
+    override init(size: CGSize) {
+        super.init(size: size)
         
-        for touch in touches {
-            let location = touch.locationInNode(self)
-            
-            let sprite = SKSpriteNode(imageNamed:"Spaceship")
-            
-            sprite.xScale = 0.5
-            sprite.yScale = 0.5
-            sprite.position = location
-            
-            let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:1)
-            
-            sprite.runAction(SKAction.repeatActionForever(action))
-            
-            self.addChild(sprite)
+        stick = Stick()
+        addChild(stick)
+        
+        stick.run()
+        
+    }
+    /*
+    
+    func stickRun() {
+        stick.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(stickRunning, timePerFrame: 0.1, resize: false, restore: true)), withKey:"stickRun")
+    }
+    
+    func stickJump(){
+        if(!jump){
+            jump = true
+            stick.runAction(SKAction.moveToY(140, duration: 0.2)) { () -> Void in
+                self.stick.runAction(SKAction.moveToY(80, duration: 0.2)) { () -> Void in
+                    self.jump = false
+                }
+                
+            }
         }
+        
+        
     }
-   
-    override func update(currentTime: CFTimeInterval) {
-        /* Called before each frame is rendered */
-    }
+    */
+    
+
 }
