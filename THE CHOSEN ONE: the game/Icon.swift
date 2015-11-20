@@ -35,8 +35,8 @@ class Icon: SKSpriteNode, SKPhysicsContactDelegate {
         physicsBody?.dynamic = true
         
         physicsBody?.categoryBitMask = GameScene.PhysicsCategory.Icons
-        physicsBody?.contactTestBitMask = GameScene.PhysicsCategory.None
-        physicsBody?.collisionBitMask = GameScene.PhysicsCategory.None
+        physicsBody?.contactTestBitMask = GameScene.PhysicsCategory.Background
+        physicsBody?.collisionBitMask = GameScene.PhysicsCategory.Background
         
         self.runAction(SKAction.fadeOutWithDuration(10)) { () -> Void in
             self.removeFromParent()

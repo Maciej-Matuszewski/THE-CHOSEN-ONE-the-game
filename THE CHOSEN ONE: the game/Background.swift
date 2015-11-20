@@ -28,11 +28,12 @@ class Background: SKSpriteNode, SKPhysicsContactDelegate {
         state = bgState.standing
         
         physicsBody = SKPhysicsBody(texture: texture, size: size)
-        physicsBody?.dynamic = false
+        physicsBody?.dynamic = true
+        physicsBody?.affectedByGravity = false
         
         
         physicsBody?.categoryBitMask = GameScene.PhysicsCategory.Background
-        physicsBody?.contactTestBitMask = GameScene.PhysicsCategory.Player
+        physicsBody?.contactTestBitMask = GameScene.PhysicsCategory.None
         physicsBody?.collisionBitMask = GameScene.PhysicsCategory.None
         
     }

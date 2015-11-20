@@ -45,7 +45,7 @@ class Stick: SKSpriteNode, SKPhysicsContactDelegate {
         physicsBody?.allowsRotation = false
         
         physicsBody?.categoryBitMask = GameScene.PhysicsCategory.Player
-        physicsBody?.contactTestBitMask = GameScene.PhysicsCategory.None
+        physicsBody?.contactTestBitMask = GameScene.PhysicsCategory.Background
         physicsBody?.collisionBitMask = GameScene.PhysicsCategory.Background
         
         
@@ -153,7 +153,7 @@ class Stick: SKSpriteNode, SKPhysicsContactDelegate {
         
         let textures = genTexture("stick_fireball_\(direction == stickDirection.Right ? "right" : "left")", fileName: "stick_fireball_")
         
-        self.runAction(SKAction.animateWithTextures(textures, timePerFrame: 0.075, resize: false, restore: true)) { () -> Void in
+        self.runAction(SKAction.animateWithTextures(textures, timePerFrame: 0.04, resize: false, restore: true)) { () -> Void in
             
             if(self.state == stickState.Running){
                 self.run()

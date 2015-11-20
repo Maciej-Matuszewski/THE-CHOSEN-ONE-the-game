@@ -34,12 +34,13 @@ class Fireball: SKSpriteNode, SKPhysicsContactDelegate  {
         
         
         physicsBody = SKPhysicsBody(circleOfRadius: size.width*0.5)
-        physicsBody?.dynamic = false
+        physicsBody?.dynamic = true
+        physicsBody?.affectedByGravity = false
         physicsBody?.allowsRotation = false
         
         physicsBody?.categoryBitMask = GameScene.PhysicsCategory.Fireball
-        physicsBody?.contactTestBitMask = GameScene.PhysicsCategory.None
-        physicsBody?.collisionBitMask = GameScene.PhysicsCategory.Background
+        physicsBody?.contactTestBitMask = GameScene.PhysicsCategory.Background
+        physicsBody?.collisionBitMask = GameScene.PhysicsCategory.None
         
         
         

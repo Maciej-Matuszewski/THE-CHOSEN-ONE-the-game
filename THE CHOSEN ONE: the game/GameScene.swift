@@ -30,10 +30,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     struct PhysicsCategory {
         static let None      : UInt32 = 0
         static let All       : UInt32 = UInt32.max
-        static let Player   : UInt32 = 0b1
-        static let Background : UInt32 = 0b10
-        static let Fireball : UInt32 = 0b100
-        static let Icons : UInt32 = 0b1000
+        static let Background : UInt32 = 1
+        static let Player   : UInt32 = 2
+        static let Fireball : UInt32 = 8
+        static let Icons : UInt32 = 16
         
     }
 
@@ -92,7 +92,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         label.runAction(SKAction.fadeOutWithDuration(1)) { () -> Void in
             label.removeFromParent()
-            let time: Double = 1 - (0.1*Double(level))
+            let time: Double = 4// - (0.1*Double(level))
             self.timer = NSTimer.scheduledTimerWithTimeInterval(time, target: self, selector: "addIcon", userInfo: nil, repeats: true)
         }
         
@@ -115,6 +115,76 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         lastIconPositionX = icon.position.x
         background.addChild(icon)
     }
+    
+    func didBeginContact(contact: SKPhysicsContact) {
+        
+        switch (contact.bodyB.categoryBitMask) {
+        case (PhysicsCategory.Player):
+            print("Player ")
+        case (PhysicsCategory.Fireball):
+            print("Fireball ")
+        case (PhysicsCategory.Background):
+            print("Background ")
+        case (PhysicsCategory.Icons):
+            print("Icons ")
+        default:
+            print("default")
+        }
+
+/*
+        
+        switch (contact.bodyA.categoryBitMask) {
+            
+        case (PhysicsCategory.Background):
+            
+            switch (contact.bodyB.categoryBitMask) {
+            case (PhysicsCategory.Fireball):
+                
+                contact.bodyB.node?.removeAllActions()
+                contact.bodyB.node?.runAction(SKAction.fadeOutWithDuration(0.3)) { () -> Void in
+                        contact.bodyB.node?.removeFromParent()
+                }
+                
+            case (PhysicsCategory.Background):
+                print("Background ")
+            case (PhysicsCategory.Icons):
+                print("Icons ")
+            default:
+                break
+            }
+            
+            break
+            
+            
+        case (PhysicsCategory.Player):
+            print("\(NSDate()) - Player: ")
+        case (PhysicsCategory.Fireball):
+            print("\(NSDate()) - Fireball: ")
+        case (PhysicsCategory.Icons):
+            print("\(NSDate()) - Icons: ")
+        default:
+            print("\(NSDate()) - default")
+        }
+        
+        /*
+        switch (contact.bodyB.categoryBitMask) {
+        case (PhysicsCategory.Player):
+            print("Player ")
+        case (PhysicsCategory.Fireball):
+            print("Fireball ")
+        case (PhysicsCategory.Background):
+            print("Background ")
+        case (PhysicsCategory.Icons):
+            print("Icons ")
+        default:
+            print("default")
+        }
+
+*/
+        
+    }
+    
+    
     /*
     func didBeginContact(contact: SKPhysicsContact) {
         
