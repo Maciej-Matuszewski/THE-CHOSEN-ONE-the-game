@@ -12,33 +12,25 @@ import UIKit
 class GameViewController: UIViewController {
 
     var scene: GameScene!
+    var analog: UIView!
+    var analogCenter: CGPoint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        //self.view.backgroundColor = UIColor.redColor()
         
         let skView = SKView(frame: self.view.frame)
         self.view.addSubview(skView)
         skView.multipleTouchEnabled = true
         
-        scene = GameScene(size: skView.bounds.size)
-        scene.scaleMode = .AspectFill
-        
-        skView.presentScene(scene)
-        
-        
-        skView.showsFPS = true
+        skView.showsFields = true
         skView.showsNodeCount = true
+        skView.showsFPS = true
+        skView.showsPhysics = true
         
-        let analog = UIView(frame: CGRect(x: self.view.frame.size.width-100, y: self.view.frame.size.height-100, width: 80, height: 80))
-        analog.backgroundColor = UIColor.redColor()
-        analog.layer.cornerRadius = 40
-        self.view.addSubview(analog)
-        
-        analog.addGestureRecognizer(UITapGestureRecognizer.init(target: self, action: "analogTap"))
-
-        
+        scene = GameScene(size: skView.bounds.size)
+        scene.scaleMode = .AspectFit
+        scene.backgroundColor = UIColor.darkGrayColor()
+        skView.presentScene(scene)
         
     }
 
@@ -50,8 +42,4 @@ class GameViewController: UIViewController {
         return true
     }
     
-    func analogTap(){
-        //scene.stickJump()
-    }
-
 }

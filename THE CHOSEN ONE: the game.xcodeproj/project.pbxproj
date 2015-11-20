@@ -7,8 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		14EEE9441BF9FB13002F1524 /* stick_run.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 14EEE9421BF9FB13002F1524 /* stick_run.atlas */; };
-		14EEE9451BF9FB13002F1524 /* stick_standing.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 14EEE9431BF9FB13002F1524 /* stick_standing.atlas */; };
+		142458211BFB7A0D00CC5C92 /* ButtonControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142458201BFB7A0D00CC5C92 /* ButtonControl.swift */; };
+		142458241BFBC48500CC5C92 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142458231BFBC48500CC5C92 /* Background.swift */; };
+		142458261BFBFEEB00CC5C92 /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142458251BFBFEEB00CC5C92 /* HUD.swift */; };
+		14B2D0E51BFE4DF10068C7BC /* stick_fireball_left.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 14B2D0DF1BFE4DF10068C7BC /* stick_fireball_left.atlas */; };
+		14B2D0E61BFE4DF10068C7BC /* stick_fireball_right.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 14B2D0E01BFE4DF10068C7BC /* stick_fireball_right.atlas */; };
+		14B2D0E71BFE4DF10068C7BC /* stick_run_left.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 14B2D0E11BFE4DF10068C7BC /* stick_run_left.atlas */; };
+		14B2D0E81BFE4DF10068C7BC /* stick_run_right.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 14B2D0E21BFE4DF10068C7BC /* stick_run_right.atlas */; };
+		14B2D0E91BFE4DF10068C7BC /* stick_stand_left.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 14B2D0E31BFE4DF10068C7BC /* stick_stand_left.atlas */; };
+		14B2D0EA1BFE4DF10068C7BC /* stick_stand_right.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 14B2D0E41BFE4DF10068C7BC /* stick_stand_right.atlas */; };
+		14B2D0ED1BFE53DF0068C7BC /* stick_walk_left.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 14B2D0EB1BFE53DF0068C7BC /* stick_walk_left.atlas */; };
+		14B2D0EE1BFE53DF0068C7BC /* stick_walk_right.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 14B2D0EC1BFE53DF0068C7BC /* stick_walk_right.atlas */; };
+		14B2D0F41BFE6DC80068C7BC /* stick_jump_central.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 14B2D0F31BFE6DC80068C7BC /* stick_jump_central.atlas */; };
+		14B2D0F61BFE7D8B0068C7BC /* stick_jump_right.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 14B2D0F51BFE7D8B0068C7BC /* stick_jump_right.atlas */; };
+		14B2D0F81BFE7E0C0068C7BC /* stick_jump_left.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 14B2D0F71BFE7E0C0068C7BC /* stick_jump_left.atlas */; };
+		14B2D0FA1BFE7FD50068C7BC /* fireball.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 14B2D0F91BFE7FD50068C7BC /* fireball.atlas */; };
+		14B2D0FC1BFE80040068C7BC /* Fireball.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B2D0FB1BFE80040068C7BC /* Fireball.swift */; };
 		14FB592A1BF8D24E00FDFE2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FB59291BF8D24E00FDFE2D /* AppDelegate.swift */; };
 		14FB59351BF8D24E00FDFE2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14FB59341BF8D24E00FDFE2D /* Assets.xcassets */; };
 		14FB59381BF8D24E00FDFE2D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14FB59361BF8D24E00FDFE2D /* LaunchScreen.storyboard */; };
@@ -17,6 +31,8 @@
 		14FB595C1BF8D3A500FDFE2D /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FB595B1BF8D3A500FDFE2D /* GameViewController.swift */; };
 		14FB595E1BF8D4A600FDFE2D /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FB595D1BF8D4A600FDFE2D /* GameScene.swift */; };
 		14FB59701BF959BF00FDFE2D /* Stick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FB596F1BF959BF00FDFE2D /* Stick.swift */; };
+		14FB59861BFAA15B00FDFE2D /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FB59851BFAA15B00FDFE2D /* Icon.swift */; };
+		14FB59881BFB283500FDFE2D /* AnalogControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FB59871BFB283500FDFE2D /* AnalogControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,8 +53,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		14EEE9421BF9FB13002F1524 /* stick_run.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = stick_run.atlas; sourceTree = "<group>"; };
-		14EEE9431BF9FB13002F1524 /* stick_standing.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = stick_standing.atlas; sourceTree = "<group>"; };
+		142458201BFB7A0D00CC5C92 /* ButtonControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonControl.swift; sourceTree = "<group>"; };
+		142458231BFBC48500CC5C92 /* Background.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
+		142458251BFBFEEB00CC5C92 /* HUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
+		14B2D0DF1BFE4DF10068C7BC /* stick_fireball_left.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = stick_fireball_left.atlas; sourceTree = "<group>"; };
+		14B2D0E01BFE4DF10068C7BC /* stick_fireball_right.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = stick_fireball_right.atlas; sourceTree = "<group>"; };
+		14B2D0E11BFE4DF10068C7BC /* stick_run_left.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = stick_run_left.atlas; sourceTree = "<group>"; };
+		14B2D0E21BFE4DF10068C7BC /* stick_run_right.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = stick_run_right.atlas; sourceTree = "<group>"; };
+		14B2D0E31BFE4DF10068C7BC /* stick_stand_left.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = stick_stand_left.atlas; sourceTree = "<group>"; };
+		14B2D0E41BFE4DF10068C7BC /* stick_stand_right.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = stick_stand_right.atlas; sourceTree = "<group>"; };
+		14B2D0EB1BFE53DF0068C7BC /* stick_walk_left.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = stick_walk_left.atlas; sourceTree = "<group>"; };
+		14B2D0EC1BFE53DF0068C7BC /* stick_walk_right.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = stick_walk_right.atlas; sourceTree = "<group>"; };
+		14B2D0F31BFE6DC80068C7BC /* stick_jump_central.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = stick_jump_central.atlas; sourceTree = "<group>"; };
+		14B2D0F51BFE7D8B0068C7BC /* stick_jump_right.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = stick_jump_right.atlas; sourceTree = "<group>"; };
+		14B2D0F71BFE7E0C0068C7BC /* stick_jump_left.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = stick_jump_left.atlas; sourceTree = "<group>"; };
+		14B2D0F91BFE7FD50068C7BC /* fireball.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = fireball.atlas; sourceTree = "<group>"; };
+		14B2D0FB1BFE80040068C7BC /* Fireball.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fireball.swift; sourceTree = "<group>"; };
 		14FB59261BF8D24E00FDFE2D /* THE CHOSEN ONE: the game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "THE CHOSEN ONE: the game.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		14FB59291BF8D24E00FDFE2D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		14FB59341BF8D24E00FDFE2D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -53,6 +83,8 @@
 		14FB595B1BF8D3A500FDFE2D /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		14FB595D1BF8D4A600FDFE2D /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		14FB596F1BF959BF00FDFE2D /* Stick.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stick.swift; sourceTree = "<group>"; };
+		14FB59851BFAA15B00FDFE2D /* Icon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
+		14FB59871BFB283500FDFE2D /* AnalogControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalogControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +112,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		142458221BFB7A1500CC5C92 /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				14FB59871BFB283500FDFE2D /* AnalogControl.swift */,
+				142458201BFB7A0D00CC5C92 /* ButtonControl.swift */,
+			);
+			name = Controls;
+			sourceTree = "<group>";
+		};
 		14FB591D1BF8D24E00FDFE2D = {
 			isa = PBXGroup;
 			children = (
@@ -106,10 +147,25 @@
 				14FB59291BF8D24E00FDFE2D /* AppDelegate.swift */,
 				14FB595B1BF8D3A500FDFE2D /* GameViewController.swift */,
 				14FB595D1BF8D4A600FDFE2D /* GameScene.swift */,
+				142458231BFBC48500CC5C92 /* Background.swift */,
 				14FB596F1BF959BF00FDFE2D /* Stick.swift */,
+				14FB59851BFAA15B00FDFE2D /* Icon.swift */,
+				14B2D0FB1BFE80040068C7BC /* Fireball.swift */,
+				142458251BFBFEEB00CC5C92 /* HUD.swift */,
+				142458221BFB7A1500CC5C92 /* Controls */,
 				14FB59341BF8D24E00FDFE2D /* Assets.xcassets */,
-				14EEE9421BF9FB13002F1524 /* stick_run.atlas */,
-				14EEE9431BF9FB13002F1524 /* stick_standing.atlas */,
+				14B2D0E31BFE4DF10068C7BC /* stick_stand_left.atlas */,
+				14B2D0E41BFE4DF10068C7BC /* stick_stand_right.atlas */,
+				14B2D0EB1BFE53DF0068C7BC /* stick_walk_left.atlas */,
+				14B2D0EC1BFE53DF0068C7BC /* stick_walk_right.atlas */,
+				14B2D0E11BFE4DF10068C7BC /* stick_run_left.atlas */,
+				14B2D0E21BFE4DF10068C7BC /* stick_run_right.atlas */,
+				14B2D0F71BFE7E0C0068C7BC /* stick_jump_left.atlas */,
+				14B2D0F31BFE6DC80068C7BC /* stick_jump_central.atlas */,
+				14B2D0F51BFE7D8B0068C7BC /* stick_jump_right.atlas */,
+				14B2D0DF1BFE4DF10068C7BC /* stick_fireball_left.atlas */,
+				14B2D0E01BFE4DF10068C7BC /* stick_fireball_right.atlas */,
+				14B2D0F91BFE7FD50068C7BC /* fireball.atlas */,
 				14FB59361BF8D24E00FDFE2D /* LaunchScreen.storyboard */,
 				14FB59391BF8D24E00FDFE2D /* Info.plist */,
 			);
@@ -239,10 +295,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14EEE9451BF9FB13002F1524 /* stick_standing.atlas in Resources */,
-				14EEE9441BF9FB13002F1524 /* stick_run.atlas in Resources */,
+				14B2D0E61BFE4DF10068C7BC /* stick_fireball_right.atlas in Resources */,
 				14FB59381BF8D24E00FDFE2D /* LaunchScreen.storyboard in Resources */,
 				14FB59351BF8D24E00FDFE2D /* Assets.xcassets in Resources */,
+				14B2D0E91BFE4DF10068C7BC /* stick_stand_left.atlas in Resources */,
+				14B2D0FA1BFE7FD50068C7BC /* fireball.atlas in Resources */,
+				14B2D0E51BFE4DF10068C7BC /* stick_fireball_left.atlas in Resources */,
+				14B2D0E71BFE4DF10068C7BC /* stick_run_left.atlas in Resources */,
+				14B2D0EE1BFE53DF0068C7BC /* stick_walk_right.atlas in Resources */,
+				14B2D0EA1BFE4DF10068C7BC /* stick_stand_right.atlas in Resources */,
+				14B2D0E81BFE4DF10068C7BC /* stick_run_right.atlas in Resources */,
+				14B2D0F41BFE6DC80068C7BC /* stick_jump_central.atlas in Resources */,
+				14B2D0ED1BFE53DF0068C7BC /* stick_walk_left.atlas in Resources */,
+				14B2D0F81BFE7E0C0068C7BC /* stick_jump_left.atlas in Resources */,
+				14B2D0F61BFE7D8B0068C7BC /* stick_jump_right.atlas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,7 +335,13 @@
 			files = (
 				14FB59701BF959BF00FDFE2D /* Stick.swift in Sources */,
 				14FB595E1BF8D4A600FDFE2D /* GameScene.swift in Sources */,
+				14B2D0FC1BFE80040068C7BC /* Fireball.swift in Sources */,
+				142458211BFB7A0D00CC5C92 /* ButtonControl.swift in Sources */,
+				142458241BFBC48500CC5C92 /* Background.swift in Sources */,
 				14FB595C1BF8D3A500FDFE2D /* GameViewController.swift in Sources */,
+				14FB59881BFB283500FDFE2D /* AnalogControl.swift in Sources */,
+				142458261BFBFEEB00CC5C92 /* HUD.swift in Sources */,
+				14FB59861BFAA15B00FDFE2D /* Icon.swift in Sources */,
 				14FB592A1BF8D24E00FDFE2D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

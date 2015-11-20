@@ -8,18 +8,32 @@
 
 import SpriteKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate{
     
-    //let ship = SKSpriteNode(imageNamed: "Spaceship")
-    //let background = SKSpriteNode(imageNamed: "skyBg")
+    var background : Background!
     
     var stick : Stick!
-    var stickRunning : [SKTexture]!
+    var icons : [Icon]!
     
-    //var jump : Bool!
+    var analog : AnalogControl!
+    var jumpButton : ButtonControl!
+    var hitButton : ButtonControl!
+    var hud : HUD!
     
-    override func update(currentTime: CFTimeInterval) {
-        
+    var level : Int!
+    var timer : NSTimer!
+    
+    var lastHit : NSDate!
+    
+    var lastIconPositionX : CGFloat!
+    
+    struct PhysicsCategory {
+        static let None      : UInt32 = 0
+        static let All       : UInt32 = UInt32.max
+        static let Player   : UInt32 = 0b1
+        static let Background : UInt32 = 0b10
+        static let Fireball : UInt32 = 0b100
+        static let Icons : UInt32 = 0b1000
         
     }
 
@@ -27,35 +41,126 @@ class GameScene: SKScene {
         fatalError("NSCoder not supported")
     }
     
+    override func update(currentTime: CFTimeInterval) {
+        
+        if(background != nil){
+         
+            background.checkPosition()
+            
+        }
+    }
+    
     override init(size: CGSize) {
         super.init(size: size)
         
-        stick = Stick()
-        addChild(stick)
+        physicsWorld.gravity = CGVectorMake(0, -7)
+        physicsWorld.contactDelegate = self
         
-        stick.run()
+        loadGame(0)
         
     }
-    /*
     
-    func stickRun() {
-        stick.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(stickRunning, timePerFrame: 0.1, resize: false, restore: true)), withKey:"stickRun")
-    }
-    
-    func stickJump(){
-        if(!jump){
-            jump = true
-            stick.runAction(SKAction.moveToY(140, duration: 0.2)) { () -> Void in
-                self.stick.runAction(SKAction.moveToY(80, duration: 0.2)) { () -> Void in
-                    self.jump = false
-                }
-                
-            }
+    func loadGame(level: Int){
+        self.removeAllChildren()
+        self.level = level
+        
+        lastHit = NSDate()
+        
+        background = Background(scene: self)
+        addChild(background)
+        
+        
+        stick = Stick(scene: self)
+        background.addChild(stick)
+        
+        initControl()
+        
+        hud = HUD(scene: self)
+        addChild(hud)
+        
+        
+        lastIconPositionX = -background.size.width/2
+        
+        icons = [Icon]()
+        
+        let label = SKLabelNode(fontNamed: "Chalkduster")
+        label.text = String("Level \(level)")
+        label.fontSize = 40
+        label.fontColor = SKColor.blackColor()
+        label.position = CGPoint (x: size.width/2, y: size.height/2)
+        addChild(label)
+        
+        label.runAction(SKAction.fadeOutWithDuration(1)) { () -> Void in
+            label.removeFromParent()
+            let time: Double = 1 - (0.1*Double(level))
+            self.timer = NSTimer.scheduledTimerWithTimeInterval(time, target: self, selector: "addIcon", userInfo: nil, repeats: true)
         }
         
+}
+    
+    func initControl(){
+        analog = AnalogControl(scene: self)
+        addChild(analog)
+        
+        jumpButton = ButtonControl(type: ButtonControl.buttonType.jumpButton, scene: self)
+        addChild(jumpButton)
+        
+        hitButton = ButtonControl(type: ButtonControl.buttonType.hitButton, scene: self)
+        addChild(hitButton)
+    }
+    
+    func addIcon() {
+        let icon = Icon(scene: self,lastIconPositionX: lastIconPositionX)
+        icons.append(icon)
+        lastIconPositionX = icon.position.x
+        background.addChild(icon)
+    }
+    /*
+    func didBeginContact(contact: SKPhysicsContact) {
+        
+        let components:NSDateComponents = NSCalendar.currentCalendar().components(NSCalendarUnit.Second, fromDate: lastHit, toDate: NSDate(), options: NSCalendarOptions.init(rawValue: 0))
+        if(components.second > 1){
+            
+            lastHit = NSDate()
+            
+            for icon:Icon in icons{
+                icon.removeFromParent()
+            }
+            
+            
+            
+            if(hud.heartThree.hidden == false){
+                hud.heartThree.hidden = true
+            }else if(hud.heartTwo.hidden == false){
+                hud.heartTwo.hidden = true
+            }else if(hud.heartOne.hidden == false){
+                hud.heartOne.hidden = true
+            }else{
+                timer.invalidate()
+                stick.physicsBody?.dynamic = true
+                stick.runAction(SKAction.fadeOutWithDuration(0.2))
+                analog.hidden = true
+                jumpButton.hidden = true
+                hitButton.hidden = true
+                contact.bodyA.dynamic = true
+                
+                let label = SKLabelNode(fontNamed: "Chalkduster")
+                label.text = String("GAME OVER!")
+                label.fontSize = 40
+                label.fontColor = SKColor.blackColor()
+                label.position = CGPoint (x: size.width/2, y: size.height/2)
+                addChild(label)
+                
+                label.runAction(SKAction.fadeOutWithDuration(2)) { () -> Void in
+                    self.removeAllChildren()
+                    self.loadGame(self.level > 0 ? self.level-1 : 0)
+                }
+            }
+        }
+
+        
         
     }
-    */
-    
+*/
 
 }
