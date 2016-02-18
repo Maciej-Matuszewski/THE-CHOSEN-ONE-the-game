@@ -19,6 +19,10 @@ class Background: SKSpriteNode, SKPhysicsContactDelegate {
     var state: bgState!
     
     var myScene : GameScene!
+    
+    var back : SKSpriteNode!
+    
+    var front : SKSpriteNode!
 
     init(scene: GameScene!) {
         myScene = scene
@@ -30,11 +34,16 @@ class Background: SKSpriteNode, SKPhysicsContactDelegate {
         physicsBody = SKPhysicsBody(texture: texture, size: size)
         physicsBody?.dynamic = true
         physicsBody?.affectedByGravity = false
-        
-        
         physicsBody?.categoryBitMask = GameScene.PhysicsCategory.Background
         physicsBody?.contactTestBitMask = GameScene.PhysicsCategory.None
         physicsBody?.collisionBitMask = GameScene.PhysicsCategory.None
+        
+        
+        back = SKSpriteNode(texture: SKTexture(imageNamed: "bg_level_0_back"), size: size)
+        back.position = position
+        front = SKSpriteNode(texture: SKTexture(imageNamed: "bg_level_0_front"), size: size)
+        front.position = position
+        
         
     }
 
@@ -48,11 +57,15 @@ class Background: SKSpriteNode, SKPhysicsContactDelegate {
             if(position.x  < -(size.width/2 - myScene.size.width)){
                 position.x = -(size.width/2 - myScene.size.width)
             }
+            back.position = position
+            front.position = position
         }else if(position.x - (self.myScene.size.width/7*2) < -self.myScene.stick.position.x){
             position.x+=self.myScene.stick.state == Stick.stickState.Running ? 3.3 : 1.3
             if(position.x > size.width/2){
                 position.x = size.width/2
             }
+            back.position = position
+            front.position = position
         }
         
         if(self.myScene.stick.position.x > size.width/2){

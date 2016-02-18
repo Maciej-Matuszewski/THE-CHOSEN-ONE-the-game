@@ -18,7 +18,7 @@ class Icon: SKSpriteNode, SKPhysicsContactDelegate {
     }
     
     init(scene :GameScene!, lastIconPositionX : CGFloat!) {
-        let texture = SKTexture(imageNamed: "ut")
+        let texture = SKTexture(imageNamed: "apple")
         let kSize = (CGFloat(arc4random_uniform(5)))
         super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 10*kSize+30, height: 10*kSize+30))
         position.y = scene.size.height/2
@@ -31,16 +31,17 @@ class Icon: SKSpriteNode, SKPhysicsContactDelegate {
         position.y = scene.size.height
         
         
-        physicsBody = SKPhysicsBody(circleOfRadius: size.width/2*0.8)
+        physicsBody = SKPhysicsBody(texture: texture, size: size) //(circleOfRadius: size.width/2*0.8)
         physicsBody?.dynamic = true
         
-        physicsBody?.categoryBitMask = GameScene.PhysicsCategory.Icons
-        physicsBody?.contactTestBitMask = GameScene.PhysicsCategory.Background
-        physicsBody?.collisionBitMask = GameScene.PhysicsCategory.Background
+        physicsBody?.categoryBitMask = GameScene.PhysicsCategory.Enemy
+        physicsBody?.contactTestBitMask = GameScene.PhysicsCategory.Player | GameScene.PhysicsCategory.Fireball
+        physicsBody?.collisionBitMask = GameScene.PhysicsCategory.Background | GameScene.PhysicsCategory.Enemy | GameScene.PhysicsCategory.Player
         
-        self.runAction(SKAction.fadeOutWithDuration(10)) { () -> Void in
+        runAction(SKAction.fadeOutWithDuration(5)) { () -> Void in
             self.removeFromParent()
         }
+        
         
     }
     

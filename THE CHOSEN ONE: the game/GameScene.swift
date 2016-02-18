@@ -23,8 +23,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     var level : Int!
     var timer : NSTimer!
     
-    var lastHit : NSDate!
-    
     var lastIconPositionX : CGFloat!
     
     struct PhysicsCategory {
@@ -33,7 +31,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         static let Background : UInt32 = 1
         static let Player   : UInt32 = 2
         static let Fireball : UInt32 = 8
-        static let Icons : UInt32 = 16
+        static let Enemy : UInt32 = 16
         
     }
 
@@ -64,10 +62,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         self.removeAllChildren()
         self.level = level
         
-        lastHit = NSDate()
-        
         background = Background(scene: self)
+        addChild(background.back)
         addChild(background)
+        addChild(background.front)
         
         
         stick = Stick(scene: self)
@@ -92,7 +90,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         label.runAction(SKAction.fadeOutWithDuration(1)) { () -> Void in
             label.removeFromParent()
-            let time: Double = 4// - (0.1*Double(level))
+            let time: Double = 1// - (0.1*Double(level))
             self.timer = NSTimer.scheduledTimerWithTimeInterval(time, target: self, selector: "addIcon", userInfo: nil, repeats: true)
         }
         
@@ -110,127 +108,102 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     }
     
     func addIcon() {
-        let icon = Icon(scene: self,lastIconPositionX: lastIconPositionX)
-        icons.append(icon)
-        lastIconPositionX = icon.position.x
-        background.addChild(icon)
+        //let icon = Icon(scene: self,lastIconPositionX: lastIconPositionX)
+        //icons.append(icon)
+        //lastIconPositionX = icon.position.x
+        //background.addChild(icon)
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
         
         switch (contact.bodyB.categoryBitMask) {
-        case (PhysicsCategory.Player):
-            print("Player ")
-        case (PhysicsCategory.Fireball):
-            print("Fireball ")
-        case (PhysicsCategory.Background):
-            print("Background ")
-        case (PhysicsCategory.Icons):
-            print("Icons ")
-        default:
-            print("default")
-        }
-
-/*
         
-        switch (contact.bodyA.categoryBitMask) {
-            
-        case (PhysicsCategory.Background):
-            
-            switch (contact.bodyB.categoryBitMask) {
-            case (PhysicsCategory.Fireball):
+        case (PhysicsCategory.Player):
+            if(contact.bodyA.categoryBitMask == PhysicsCategory.Enemy){ stick.getDamage(10) }
+        
+        
+        
+        case (PhysicsCategory.Fireball):
+            switch (contact.bodyA.categoryBitMask) {
+            case (PhysicsCategory.Background):
                 
                 contact.bodyB.node?.removeAllActions()
                 contact.bodyB.node?.runAction(SKAction.fadeOutWithDuration(0.3)) { () -> Void in
-                        contact.bodyB.node?.removeFromParent()
+                    contact.bodyB.node?.removeFromParent()
                 }
                 
-            case (PhysicsCategory.Background):
-                print("Background ")
-            case (PhysicsCategory.Icons):
-                print("Icons ")
+            case (PhysicsCategory.Enemy):
+                
+                contact.bodyB.node?.removeAllActions()
+                contact.bodyB.node?.runAction(SKAction.fadeOutWithDuration(0.1)) { () -> Void in
+                    contact.bodyB.node?.removeFromParent()
+                }
+                
+                contact.bodyA.node?.removeAllActions()
+                contact.bodyA.node?.runAction(SKAction.fadeOutWithDuration(0.1)) { () -> Void in
+                    contact.bodyA.node?.removeFromParent()
+                }
+                
             default:
-                break
+                print("default")
             }
-            
-            break
-            
-            
-        case (PhysicsCategory.Player):
-            print("\(NSDate()) - Player: ")
-        case (PhysicsCategory.Fireball):
-            print("\(NSDate()) - Fireball: ")
-        case (PhysicsCategory.Icons):
-            print("\(NSDate()) - Icons: ")
-        default:
-            print("\(NSDate()) - default")
-        }
         
-        /*
-        switch (contact.bodyB.categoryBitMask) {
-        case (PhysicsCategory.Player):
-            print("Player ")
-        case (PhysicsCategory.Fireball):
-            print("Fireball ")
+            
+            
         case (PhysicsCategory.Background):
             print("Background ")
-        case (PhysicsCategory.Icons):
-            print("Icons ")
+        
+        
+        
+        case (PhysicsCategory.Enemy):
+            switch (contact.bodyA.categoryBitMask) {
+            case (PhysicsCategory.Player):
+                
+                stick.getDamage(10)
+                
+            case (PhysicsCategory.Fireball):
+                
+                contact.bodyB.node?.removeAllActions()
+                contact.bodyB.node?.runAction(SKAction.fadeOutWithDuration(0.1)) { () -> Void in
+                    contact.bodyB.node?.removeFromParent()
+                }
+                
+                contact.bodyA.node?.removeAllActions()
+                contact.bodyA.node?.runAction(SKAction.fadeOutWithDuration(0.1)) { () -> Void in
+                    contact.bodyA.node?.removeFromParent()
+                }
+                
+            default:
+                print("default")
+            }
+        
+            
+        
+        
         default:
             print("default")
         }
 
-*/
         
     }
     
     
-    /*
-    func didBeginContact(contact: SKPhysicsContact) {
+    func gameOver(){
+        self.removeChildrenInArray([analog, jumpButton, hitButton, hud])
+        stick.stop()
+        stick.runAction(SKAction.rotateByAngle(CGFloat(M_PI_2), duration: 0.3))
+        let label = SKLabelNode(fontNamed: "Chalkduster")
+        label.text = String("GAME OVER!")
+        label.fontSize = 40
+        label.fontColor = SKColor.blackColor()
+        label.position = CGPoint (x: size.width/2, y: size.height/2)
+        addChild(label)
         
-        let components:NSDateComponents = NSCalendar.currentCalendar().components(NSCalendarUnit.Second, fromDate: lastHit, toDate: NSDate(), options: NSCalendarOptions.init(rawValue: 0))
-        if(components.second > 1){
-            
-            lastHit = NSDate()
-            
-            for icon:Icon in icons{
-                icon.removeFromParent()
-            }
-            
-            
-            
-            if(hud.heartThree.hidden == false){
-                hud.heartThree.hidden = true
-            }else if(hud.heartTwo.hidden == false){
-                hud.heartTwo.hidden = true
-            }else if(hud.heartOne.hidden == false){
-                hud.heartOne.hidden = true
-            }else{
-                timer.invalidate()
-                stick.physicsBody?.dynamic = true
-                stick.runAction(SKAction.fadeOutWithDuration(0.2))
-                analog.hidden = true
-                jumpButton.hidden = true
-                hitButton.hidden = true
-                contact.bodyA.dynamic = true
-                
-                let label = SKLabelNode(fontNamed: "Chalkduster")
-                label.text = String("GAME OVER!")
-                label.fontSize = 40
-                label.fontColor = SKColor.blackColor()
-                label.position = CGPoint (x: size.width/2, y: size.height/2)
-                addChild(label)
-                
-                label.runAction(SKAction.fadeOutWithDuration(2)) { () -> Void in
-                    self.removeAllChildren()
-                    self.loadGame(self.level > 0 ? self.level-1 : 0)
-                }
-            }
+        label.runAction(SKAction.fadeOutWithDuration(2)) { () -> Void in
+            self.removeAllChildren()
+            self.loadGame(self.level > 0 ? self.level-1 : 0)
         }
 
-        
-        
     }
-*/
 
 }

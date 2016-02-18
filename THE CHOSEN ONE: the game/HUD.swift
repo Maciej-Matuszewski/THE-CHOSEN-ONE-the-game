@@ -41,4 +41,38 @@ class HUD: SKSpriteNode {
         
     }
     
+    func updateHUD(health : Int){
+        
+        if(health == 100){
+            heartOne.alpha = 1.0
+            heartTwo.alpha = 1.0
+            heartThree.alpha = 1.0
+        }else if(health >= 90){
+            heartOne.alpha = 1.0
+            heartTwo.alpha = 1.0
+            heartThree.alpha = 0.5
+        }else if(health >= 70){
+            heartOne.alpha = 1.0
+            heartTwo.alpha = 1.0
+            heartThree.alpha = 0.0
+        }else if(health >= 50){
+            heartOne.alpha = 1.0
+            heartTwo.alpha = 0.5
+            heartThree.alpha = 0.0
+        }else if(health >= 30){
+            heartOne.alpha = 1.0
+            heartTwo.alpha = 0.0
+            heartThree.alpha = 0.0
+        }else if(health >= 10){
+            heartOne.alpha = 0.5
+            heartTwo.alpha = 0.0
+            heartThree.alpha = 0.0
+        }else{
+            heartOne.alpha = 0.0
+            heartTwo.alpha = 0.0
+            heartThree.alpha = 0.0
+        }
+        
+    }
+    
 }

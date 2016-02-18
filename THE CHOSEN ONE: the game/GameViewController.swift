@@ -22,10 +22,10 @@ class GameViewController: UIViewController {
         self.view.addSubview(skView)
         skView.multipleTouchEnabled = true
         
-        skView.showsFields = true
-        skView.showsNodeCount = true
-        skView.showsFPS = true
-        skView.showsPhysics = true
+        //skView.showsFields = true
+        //skView.showsNodeCount = true
+        //skView.showsFPS = true
+        //skView.showsPhysics = true
         
         scene = GameScene(size: skView.bounds.size)
         scene.scaleMode = .AspectFit

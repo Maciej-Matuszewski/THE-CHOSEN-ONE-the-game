@@ -28,8 +28,11 @@ class Fireball: SKSpriteNode, SKPhysicsContactDelegate  {
         let kSize : CGFloat = 0.5
         super.init(texture: textures[0], color: UIColor.clearColor(), size: CGSize(width: textures[0].size().width * kSize, height: textures[0].size().height * kSize))
         
-        position.y = scene.stick.position.y + scene.stick.size.height/3
-        position.x = scene.stick.position.x + (scene.stick.direction == Stick.stickDirection.Right ? scene.stick.size.width/2 : -scene.stick.size.width/4)
+        xScale = 0.1
+        yScale = 0.1
+        
+        position.y = scene.stick.position.y
+        position.x = scene.stick.position.x
         
         
         
@@ -39,13 +42,13 @@ class Fireball: SKSpriteNode, SKPhysicsContactDelegate  {
         physicsBody?.allowsRotation = false
         
         physicsBody?.categoryBitMask = GameScene.PhysicsCategory.Fireball
-        physicsBody?.contactTestBitMask = GameScene.PhysicsCategory.Background
+        physicsBody?.contactTestBitMask = GameScene.PhysicsCategory.Background | GameScene.PhysicsCategory.Enemy
         physicsBody?.collisionBitMask = GameScene.PhysicsCategory.None
         
         
         
-        var ax : Double = Double(scene.analog.analogStick.position.x*20)
-        let ay : Double = Double(scene.analog.analogStick.position.y*20)
+        var ax : Double = Double(scene.analog.analogStick.position.x*10)
+        let ay : Double = Double(scene.analog.analogStick.position.y*10)
         let bx : Double = 0
         let by : Double = -100
         
@@ -71,7 +74,11 @@ class Fireball: SKSpriteNode, SKPhysicsContactDelegate  {
         self.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(textures, timePerFrame: 0.075, resize: false, restore: true)))
         runAction(SKAction.sequence([
             
-            SKAction.moveBy(CGVector(dx: ax, dy: ay), duration: 1.5),
+            SKAction.group([
+                SKAction.scaleTo(1.5, duration: 0.5),
+                SKAction.moveBy(CGVector(dx: ax, dy: ay), duration: 1.5),
+                ]),
+            
             SKAction.fadeOutWithDuration(0.3)
             
             ])) { () -> Void in

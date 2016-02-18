@@ -26,6 +26,9 @@ class Stick: SKSpriteNode, SKPhysicsContactDelegate {
     var direction: stickDirection!
     var jumping: Bool!
     
+    var health : Int
+    var lastHit : NSDate
+    
     var myScene : GameScene!
 
     required init?(coder aDecoder: NSCoder) {
@@ -35,6 +38,8 @@ class Stick: SKSpriteNode, SKPhysicsContactDelegate {
     init(scene: GameScene!) {
         myScene = scene
         
+        health = 100
+        lastHit = NSDate()
         
         let texture = SKTextureAtlas(named: "stick_stand_right").textureNamed("stick_stand_1")
         super.init(texture: texture, color: UIColor.redColor(), size: CGSize(width: texture.size().width/2, height: texture.size().height/2))
@@ -45,8 +50,8 @@ class Stick: SKSpriteNode, SKPhysicsContactDelegate {
         physicsBody?.allowsRotation = false
         
         physicsBody?.categoryBitMask = GameScene.PhysicsCategory.Player
-        physicsBody?.contactTestBitMask = GameScene.PhysicsCategory.Background
-        physicsBody?.collisionBitMask = GameScene.PhysicsCategory.Background
+        physicsBody?.contactTestBitMask = GameScene.PhysicsCategory.Enemy
+        physicsBody?.collisionBitMask = GameScene.PhysicsCategory.Background | GameScene.PhysicsCategory.Enemy
         
         
         direction = stickDirection.Right
@@ -88,7 +93,6 @@ class Stick: SKSpriteNode, SKPhysicsContactDelegate {
     }
     
     func run(){
-        
         removeActionForKey("Walk")
         
         state = stickState.Running
@@ -123,11 +127,21 @@ class Stick: SKSpriteNode, SKPhysicsContactDelegate {
             
             jumping = true
             
-            physicsBody?.applyImpulse(CGVector(dx: 0, dy: 25), atPoint: CGPoint(x: 0, y: -50))
+            
+            removeActionForKey("Run")
+            removeActionForKey("Walk")
+            
+            
+            physicsBody?.applyImpulse(CGVector(dx: self.state == stickState.Standing ? 0 : self.direction == stickDirection.Right ? 10 : -10, dy: 25), atPoint: CGPoint(x: 0, y: -50))
             
             let textures = state == stickState.Standing ?  genTexture("stick_jump_central", fileName: "stick_jump_") : genTexture("stick_jump_\(direction == stickDirection.Right ? "right" : "left")", fileName: "stick_jump_")
             self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(textures, timePerFrame: 0.075, resize: false, restore: true), count: 1)) { () -> Void in
                     self.jumping = false
+                if(self.state == stickState.Running){
+                    self.run()
+                }else if(self.state == stickState.Walking){
+                    self.walk()
+                }
             }
             
         }
@@ -168,16 +182,52 @@ class Stick: SKSpriteNode, SKPhysicsContactDelegate {
     }
     
     func stop(){
-        if(jumping == true){
-            let time = dispatch_time(dispatch_time_t(DISPATCH_TIME_NOW), Int64(NSEC_PER_SEC))
-            dispatch_after(time, dispatch_get_main_queue()) {
-                
-                self.jumping = false
-            }
+        
+        if jumping == true {
+            runAction(SKAction.waitForDuration(0.1), completion: { () -> Void in
+                self.stop()
+            })
+            
+        }else{
+            removeActionForKey("Run")
+            removeActionForKey("Walk")
+            removeActionForKey("Stand")
+            stand()
         }
         
-        removeAllActions()
-        stand()
+        
+    }
+    
+    func getDamage(damage: Int){
+        
+        
+        let components:NSDateComponents = NSCalendar.currentCalendar().components(NSCalendarUnit.Second, fromDate: lastHit, toDate: NSDate(), options: NSCalendarOptions.init(rawValue: 0))
+        if(Double(components.second) > Double(0.1)){
+            
+            lastHit = NSDate()
+            
+            health-=damage
+            
+            myScene.hud.updateHUD(health)
+            
+            runAction(SKAction.sequence([
+                
+                SKAction.fadeAlphaTo(0.1, duration: 0.1),
+                SKAction.fadeAlphaTo(1.0, duration: 0.1),
+                SKAction.fadeAlphaTo(0.1, duration: 0.1),
+                SKAction.fadeAlphaTo(1.0, duration: 0.1),
+                SKAction.fadeAlphaTo(0.1, duration: 0.1),
+                SKAction.fadeAlphaTo(1.0, duration: 0.1),
+                SKAction.fadeAlphaTo(0.1, duration: 0.1),
+                SKAction.fadeAlphaTo(1.0, duration: 0.1),
+                
+                ]))
+            
+            if health <= 0 {
+                myScene.gameOver()
+            }
+            
+        }
     }
     
     func genTexture(atlasName:String, fileName: String) ->[SKTexture]{
